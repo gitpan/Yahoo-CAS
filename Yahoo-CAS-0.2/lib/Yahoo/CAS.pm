@@ -40,7 +40,7 @@ sub ke {
     my $content = $param->{content};
     my $threshold = $param->{threshold};
     my $maxnum = $param->{maxnum};
-    my $request = { url => $self->{request}."ke", content => "content=$content&threshold=$threshold&maxnum=$maxnum";
+    my $request = { url => $self->{request}."ke", content => "content=$content&threshold=$threshold&maxnum=$maxnum" };
     my $response = XMLin($self->_get($request));
     if (exists($response->{KeywordExtractionResult})) {
 	return $response->{KeywordExtractionResult};
@@ -55,7 +55,7 @@ sub _get {
     my $req = HTTP::Request->new(POST => $request->{url});
     $req->content_type('application/x-www-form-urlencoded');
     $req->{content} = $request->{content}."&appid=".$self->{appid};
-    my $res = $ua->request($req);
+    my $res = $req->request($req);
     if ($res->is_success) {
 	return $res->content;
     } else {
